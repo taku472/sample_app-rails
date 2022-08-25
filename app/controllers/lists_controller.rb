@@ -9,17 +9,28 @@ class ListsController < ApplicationController
     list = List.new(list_params)
     #3. データをデータベースに保存するためのsaveメソッド実行
     list.save
-    #4. トップ画面へリダイレクト
-    redirect_to '/top'
+    #4. トップ画面へリダイレクト-> 詳細画面へリダイレクト
+    redirect_to list_path(list.id)
   end
 
   def index
+    #listsテーブルに保存されている全てのデータを取得することができる
+    @lists = List.all
   end
 
   def show
+    #findメソッドで引数を受け取り、idカラムを引数と比較してレコードを取得する
+    @list = List.find(params[:id])
   end
 
   def edit
+    @list = List.find(params[:id])
+  end
+  
+  def update
+    list = List.find(params[:id])
+    list.update(list_params)
+    redirect_to list_path(list.id)
   end
   
   private

@@ -1,15 +1,16 @@
-<h2>タイトル</h2>
-<p><%= @list.title %></p>
+<div class="list-wrap">
+  <div class="list-box">
+    <% if @list.image.attached? %>
+      <%= image_tag @list.image, size: "300x300" %>
+    <% else %>
+      <%= image_tag 'no_image', size: "300x300" %>
+    <% end %>
+    <div class="list-comment">
+      <span class="list-body"><%= @list.body %></span>
+      <span class="list-title"><%= @list.title %></span>
+      <span><%= link_to "編集", edit_list_path(@list.id) %></span>
+      <span><%= link_to "削除", list_path(@list.id), method: :delete, "data-confirm" => "本当に削除しますか？" %></span>
+    </div>
+  </div>
+</div>
 
-<h2>本文</h2>
-<p><%= @list.body %></p>
-
-<p>画像</p>
-<% if @list.image.attached? %>
-  <%= image_tag @list.image, size: "300x300" %>
-<% else %>
-  <%= image_tag 'no_image', size: "300x300" %>
-<% end %>
-
-<%= link_to "編集", edit_list_path(@list.id) %>
-<%= link_to "削除", list_path(@list.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
